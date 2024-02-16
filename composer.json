@@ -36,5 +36,12 @@
   "repositories": [],
   "require-dev": {
     "phpstan/phpstan": "^1.4"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "SnakeInk\\Crude\\ServiceProvider"
+      ]
+    }
   }
 }
