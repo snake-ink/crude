@@ -1,0 +1,5 @@
+Host *
+HostName github.com
+User git
+IdentityFile /opt/private.key
+IdentitiesOnly yes

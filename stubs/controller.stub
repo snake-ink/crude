@@ -1,0 +1,72 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use SnakeInk\Crude\Resources\ContentResource;
+use SnakeInk\Crude\Resources\CreatedResource;
+use App\Models\{{Model}};
+use App\Services\{{Model}}Service;
+
+class DummyClass extends Controller
+{
+    public function __construct(private {{Model}}Service ${{model}}Service)
+    {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        return ContentResource::toJson(
+            resources: $this->{{model}}Service->index(
+                useQueryBuilder: true,
+                paginate: $request->query('paginate')
+            ),
+            message: __('{{ModelPlural}} found.')
+        );
+    }
+
+    public function show(Request $request, int|string $id): JsonResponse
+    {
+        return ContentResource::toJson(
+            resources: $this->{{model}}Service->show(
+                id: $id,
+                failIfNotFound: true,
+                useQueryBuilder: true
+            ),
+            message: __('{{Model}} found.')
+        );
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        return CreatedResource::toJson(
+            resources: $this->{{model}}Service->store(attributes: $request->all()),
+            message: __('{{Model}} created.')
+        );
+    }
+
+    public function update(Request $request, int|string $id): JsonResponse
+    {
+        return ContentResource::toJson(
+            resources: $this->{{model}}Service->update(
+                entity: $id,
+                attributes: $request->all(),
+                failIfNotFound: true,
+            ),
+            message: __('{{Model}} updated.')
+        );
+    }
+
+    public function destroy(Request $request, int|string $id): JsonResponse
+    {
+        $deleted = $this->{{model}}Service->destroy(
+            entities: $id,
+            failIfNotFound: true
+        );
+
+        return ContentResource::toJson(
+            message: __('{{Model}} deleted.')
+        );
+    }
+}

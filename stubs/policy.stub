@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Policies;
+
+use Illuminate\Support\Collection;
+use App\Models\User;
+use App\Models\{{Model}};
+
+class {{Model}}Policy
+{
+    /**
+     * Whether the $actor can list {{ModelPluralSpace}}.
+     *
+     */
+    public function viewAny(User $actor)
+    {
+        return true;
+    }
+
+    /**
+     * Whether the $actor can view a specific {{Model}}.
+     *
+     */
+    public function view(
+        User $actor, 
+        {{Model}}|int|string ${{model}}
+    ) {
+        return true;
+    }
+
+    /**
+     * Whether the $actor can create a {{Model}}.
+     *
+     */
+    public function create(User $actor, array $attributes = [])
+    {
+        return true;
+    }
+
+    /**
+     * Whether the $actor can update a specific {{Model}}.
+     *
+     */
+    public function update(
+        User $actor,
+        {{Model}}|int|string ${{model}},
+        array $attributes = []
+    ) {
+        return true;
+    }
+
+    /**
+     * Whether the $actor can delete a specific {{Model}}, 
+     * or multiple specific {{ModelPluralSpace}}.
+     *
+     */
+    public function delete(
+        User $actor, 
+        Collection|array|{{Model}}|int|string ${{model}}
+    ) {
+        return true;
+    }
+}

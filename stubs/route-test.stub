@@ -1,0 +1,337 @@
+<?php
+
+namespace Tests;
+
+use Illuminate\Http\Response;
+use App\Models\{{Model}};
+use Laravel\Lumen\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Str;
+
+class DummyClass extends TestCase
+{
+    use RefreshDatabase;
+    use DatabaseMigrations;
+
+    // Regular tests
+
+    public function testNo{{ModelPlural}}Exist()
+    {
+        $response = $this->actingAs($this->genericUser)->call(
+            method: 'GET',
+            uri: route('{{kebab-case-model-plural}}.index'),
+        );
+
+        $response->assertStatus(Response::HTTP_NO_CONTENT);
+    }
+
+    public function testAll{{ModelPlural}}CanBeListed()
+    {
+        $numberOfResources = 10;
+        $createdResources = {{Model}}::factory()->count($numberOfResources)->create();
+
+        $response = $this->actingAs($this->genericUser)->call(
+            method: 'GET',
+            uri: route('{{kebab-case-model-plural}}.index'),
+        );
+
+        $response->assertStatus(Response::HTTP_OK);
+
+        $this->assertEquals(
+            $createdResources->toArray(),
+            $response->original['resources']->toArray()
+        );
+    }
+
+    public function test{{Model}}CanBeShown()
+    {
+        ${{model}} = {{Model}}::factory()->create();
+
+        $response = $this->actingAs($this->genericUser)->call(
+            method: 'GET',
+            uri: route('{{kebab-case-model-plural}}.show', ['id' => ${{model}}->id])
+        );
+
+        $response->assertStatus(Response::HTTP_OK);
+
+        $this->assertEquals(
+            ${{model}}->toArray(),
+            $response->original['resources']->toArray()
+        );
+    }
+
+    public function test{{Model}}CanBeCreated()
+    {
+        $response = $this->actingAs($this->genericUser)->call(
+            method: 'POST',
+            uri: route('{{kebab-case-model-plural}}.store'),
+            parameters: {{Model}}::factory()->make()->toArray()
+        );
+
+        $response->assertStatus(Response::HTTP_CREATED);
+
+        ${{model}}FromResponse = $response->original['resources'];
+
+        $this->assertModelExists(${{model}}FromResponse);
+    }
+
+    public function test{{Model}}CanBeUpdated()
+    {
+        ${{model}} = {{Model}}::factory()->create();
+
+        $updateData = {{Model}}::factory()->make()->toArray();
+
+        $response = $this->actingAs($this->genericUser)->call(
+            method: 'PUT',
+            uri: route('{{kebab-case-model-plural}}.update', ['id' => ${{model}}->id]),
+            parameters: $updateData
+        );
+
+        $response->assertStatus(Response::HTTP_OK);
+        
+        $totalFromResponse = $response->original['resources'];
+
+        $this->assertEquals(
+            ${{model}}->fresh()->toArray(),
+            $totalFromResponse->toArray()
+        );
+    }
+
+    public function test{{Model}}CanBeDeleted()
+    {
+        ${{model}} = {{Model}}::factory()->create();
+
+        $response = $this->actingAs($this->genericUser)->call(
+            method: 'DELETE',
+            uri: route('{{kebab-case-model-plural}}.destroy', ['id' => ${{model}}->id]),
+        );
+
+        $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+        $this->assertDeleted(${{model}});
+    }
+
+    // "Not Found" tests
+
+    /**
+     * @dataProvider {{model}}NotFoundErrorsProvider
+     */
+    public function test{{Model}}NotFoundErrors(
+        string $requestMethod,
+        string $routeName,
+        array $requestData = [],
+        array $routeParams = [],
+    ) {
+        $routeParams = empty($routeParams) ? ['id' => 404] : $routeParams;
+
+        $response = $this->actingAs($this->genericUser)->call(
+            method: $requestMethod,
+            uri: route($routeName, $routeParams),
+            parameters: $requestData
+        );
+
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
+
+        $this->assertSame(
+            Lang::get('Route or resource not found.'),
+            $response->json('message')
+        );
+    }
+
+    public function {{model}}NotFoundErrorsProvider()
+    {
+        return [
+            ['GET', '{{kebab-case-model-plural}}.show'],
+            ['PUT', '{{kebab-case-model-plural}}.update'],
+            ['DELETE', '{{kebab-case-model-plural}}.destroy'],
+        ];
+    }
+
+    // Validation tests
+
+    /**
+     * @dataProvider {{model}}MustBeValidWhenCreatedProvider
+     */
+    public function test{{Model}}MustBeValidWhenCreated(
+        array $invalidData,
+        string $invalidField,
+        string $errorMessage,
+        array $messageParams = []
+    ) {
+        $errorMessage = $this->includeValidationPrefix($errorMessage);
+
+        $response = $this->actingAs($this->genericUser)->call(
+            method: 'POST',
+            uri: route('{{kebab-case-model-plural}}.store'),
+            parameters: $invalidData
+        );
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonValidationErrors($invalidField);
+
+        $this->assertTrue(Lang::has($errorMessage));
+
+        $this->assertSame(
+            Lang::get(
+                $errorMessage,
+                array_merge(
+                    ['attribute' => str_replace('_', ' ', $invalidField)],
+                    $messageParams
+                )
+            ),
+            $response->json("errors.{$invalidField}.0")
+        );
+    }
+
+    public function {{model}}MustBeValidWhenCreatedProvider()
+    {
+        return [
+        ];
+    }
+
+    /**
+     * @dataProvider {{model}}MustBeValidWhenUpdatedProvider
+     */
+    public function test{{Model}}MustBeValidWhenUpdated(
+        array $invalidData,
+        string $invalidField,
+        string $errorMessage,
+        array $messageParams = []
+    ) {
+        $errorMessage = $this->includeValidationPrefix($errorMessage);
+
+        ${{model}} = {{Model}}::factory()->create();
+
+        $response = $this->actingAs($this->genericUser)->call(
+            method: 'PUT',
+            uri: route('{{kebab-case-model-plural}}.update', [
+                'id' => ${{model}}->id
+            ]),
+            parameters: $invalidData
+        );
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonValidationErrors($invalidField);
+
+        $this->assertTrue(Lang::has($errorMessage));
+
+        $this->assertSame(
+            Lang::get(
+                $errorMessage,
+                array_merge(
+                    ['attribute' => str_replace('_', ' ', $invalidField)],
+                    $messageParams
+                )
+            ),
+            $response->json("errors.{$invalidField}.0")
+        );
+    }
+
+    public function {{model}}MustBeValidWhenUpdatedProvider()
+    {
+        return [
+        ];
+    }
+
+    // Filter tests
+
+    /**
+     * @dataProvider {{model}}ListCanBeFilteredProvider
+     */
+    public function test{{Model}}ListCanBeFiltered(
+        string $field,
+        $filterData = null,
+        $extraData = null,
+    ) {
+        if(str_contains($field, '_id')) {
+            $class = 'App\\Models\\'.Str::studly(rtrim($field, '_id'));
+
+            $class::factory()->create(['id' => $filterData]);
+
+            $extraData = $this->generateUniqueObject($class, 'id', gettype($extraData));
+            $class::factory()->create(['id' => $extraData]);
+
+            $filterData = $this->generateUniqueObject($class, 'id', gettype($filterData));
+            $class::factory()->create(['id' => $filterData]);
+        }
+
+        {{Model}}::factory()->create([$field => $filterData]);
+        {{Model}}::factory()->create([$field => $extraData]);
+
+        $filterItem = {{Model}}::where([$field => $filterData])->get();
+
+        $response = $this->actingAs($this->genericUser)->call(
+            method: 'GET',
+            uri: route('{{kebab-case-model-plural}}.index'),
+            parameters: ['filter' => [$field => $filterData]]
+        );
+
+        $response->assertStatus(Response::HTTP_OK);
+
+        $totalFromResponse = $response->original['resources'];
+
+        $this->assertEquals(
+            $filterItem->toArray(),
+            $totalFromResponse->toArray()
+        );
+    }
+
+    public function {{model}}ListCanBeFilteredProvider()
+    {
+        return [
+            ['id', '100', '2'],
+            ['code', '{{ModelSpace}}', Str::random(16)],
+        ];
+    }
+
+    public function test{{Model}}ListCannotBeFilteredWithInvalidQuery()
+    {
+        $response = $this->actingAs($this->genericUser)->call(
+            method: 'GET',
+            uri: route('{{kebab-case-model-plural}}.index'),
+            parameters: ['filter' => ['invalid_field' => 'value']]
+        );
+
+        $response->assertStatus(Response::HTTP_BAD_REQUEST);
+
+        $this->assertSame(
+            Lang::get('Malformed request: invalid/unsupported filter query.'),
+            $response->json('message')
+        );
+    }
+
+    // Pagination tests
+
+    public function test{{ModelPlural}}CanBeListedWithPagination()
+    {
+        $number = 5;
+        $perPage = 2;
+        $page = 2;
+
+        {{Model}}::factory()->count($number)->create();
+        $total = {{Model}}::paginate(perPage: $perPage, page: $page);
+
+        $response = $this->actingAs($this->genericUser)->call(
+            method: 'GET',
+            uri: route('{{kebab-case-model-plural}}.index'),
+            parameters: [
+                'paginate' => $perPage,
+                'page' => $page
+            ]
+        );
+
+        $response->assertStatus(Response::HTTP_OK);
+        
+        $totalFromResponse = $response->original['resources'];
+
+        $this->assertEquals($total->perPage(), $totalFromResponse->perPage());
+        $this->assertEquals($total->currentPage(), $totalFromResponse->currentPage());
+        $this->assertEquals($total->total(), $totalFromResponse->total());
+        $this->assertEquals($total->lastPage(), $totalFromResponse->lastPage());
+        $this->assertEquals(
+            $total->all(),
+            $totalFromResponse->all()
+        );
+    }
+}

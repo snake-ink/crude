@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Validators;
+
+use SnakeInk\Crude\Abstracts\Validator;
+
+class DummyClass extends Validator
+{
+    /**
+     * Validation rules applied during the creation of the entity.
+     */
+    public function store(): array
+    {
+        return [];
+    }
+
+    /**
+     * Validation rules applied during the update of the entity.
+     */
+    public function update(): array
+    {
+        return [];
+    }
+}

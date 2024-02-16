@@ -1,0 +1,40 @@
+{
+  "name": "snake-ink/crude",
+  "description": "Create, Read, Update, Delete, Extended -- for Laravel/PHP.",
+  "version": "0.0.0",
+  "keywords": [
+    "laravel",
+    "crud",
+    "rest",
+    "repository",
+    "service"
+  ],
+  "authors": [
+    {
+      "name": "Snake Ink",
+      "email": "sss@snake.ink"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "laravel/framework": "10.*",
+    "illuminate/support": "10.*",
+    "spatie/laravel-query-builder": "5.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "SnakeInk\\Crude\\": "src/"
+    }
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "repositories": [],
+  "require-dev": {
+    "phpstan/phpstan": "^1.4"
+  }
+}
