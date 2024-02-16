@@ -46,6 +46,11 @@ class MakeRouteTest extends GeneratorCommand
 
     protected function getRootNamespace()
     {
-        return 'Tests/Route';
+        return 'Tests';
+    }
+
+    protected function getDefaultNamespace($rootNamespace)
+    {
+        return $rootNamespace.'\Route';
     }
 }
