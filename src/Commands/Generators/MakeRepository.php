@@ -3,9 +3,12 @@
 namespace SnakeInk\Crude\Commands\Generators;
 
 use SnakeInk\Crude\Abstracts\GeneratorCommand;
+use SnakeInk\Crude\Commands\Concerns\HasExtraGeneratorFunctionality;
 
 class MakeRepository extends GeneratorCommand
 {
+    use HasExtraGeneratorFunctionality;
+
     /**
      * The name and signature of the console command.
      *
