@@ -20,7 +20,7 @@ class DummyClass extends Controller
         return ContentResource::toJson(
             resources: $this->{{model}}Service->index(
                 useQueryBuilder: true,
-                paginate: $request->query('paginate')
+                perPage: $request->query('perPage')
             ),
             message: __('{{ModelPlural}} found.')
         );
