@@ -52,7 +52,7 @@ class MakeModel extends GeneratorCommand
                 $this->call('sss:make-validator', $this->buildGeneratorCommandArguments());
                 $this->call('sss:make-controller', $this->buildGeneratorCommandArguments());
                 $this->call('sss:make-factory', $this->buildGeneratorCommandArguments());
-                $this->call('sss-make:route-test', $this->buildGeneratorCommandArguments());
+                $this->call('sss:make-route-test', $this->buildGeneratorCommandArguments());
             } catch (\Throwable $exception) {
                 $this->error('Something went wrong while calling a command.');
                 $this->error('Have you installed all neccessary libraries to enable the "--all" option?');
