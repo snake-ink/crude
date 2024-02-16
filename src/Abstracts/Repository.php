@@ -5,12 +5,17 @@ namespace SnakeInk\Crude\Abstracts;
 use Closure;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
+use SnakeInk\Crude\Contracts\Sortable;
 use Illuminate\Database\Eloquent\Model;
+use SnakeInk\Crude\Contracts\Filterable;
+use SnakeInk\Crude\Contracts\Includable;
+use SnakeInk\Crude\Contracts\Selectable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use SnakeInk\Crude\Concerns\ChecksIfClassImplementsAnother;
+use SnakeInk\Crude\Exceptions\RelationMethodNotFoundException;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 abstract class Repository
