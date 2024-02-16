@@ -4,8 +4,6 @@ namespace Tests\Route;
 
 use Illuminate\Http\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Str;
 use SnakeInk\Crude\Abstracts\RouteTestCase;
 use App\Models\{{Model}};
 
