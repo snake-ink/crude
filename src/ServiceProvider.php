@@ -2,9 +2,8 @@
 
 namespace SnakeInk\Crude;
 
-use Illuminate\Contracts\Support\DeferrableProvider;
-use SnakeInk\Crude\Commands\Generators\MakeRepository;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use SnakeInk\Crude\Commands\Generators\MakeRepository;
 use SnakeInk\Crude\Commands\Generators\MakeController;
 use SnakeInk\Crude\Commands\Generators\MakeFactory;
 use SnakeInk\Crude\Commands\Generators\MakeModel;
@@ -13,7 +12,7 @@ use SnakeInk\Crude\Commands\Generators\MakeRouteTest;
 use SnakeInk\Crude\Commands\Generators\MakeService;
 use SnakeInk\Crude\Commands\Generators\MakeValidator;
 
-class ServiceProvider extends BaseServiceProvider implements DeferrableProvider
+class ServiceProvider extends BaseServiceProvider
 {
     /**
      * Boot the service provider.
