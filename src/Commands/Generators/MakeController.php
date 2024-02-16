@@ -31,7 +31,7 @@ class MakeController extends GeneratorCommand
 
     public function getStub()
     {
-        return dirname(__DIR__, 2).'/stubs/controller.stub';
+        return dirname(__DIR__, 3).'/stubs/controller.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)

@@ -64,7 +64,7 @@ class MakeModel extends GeneratorCommand
 
     public function getStub()
     {
-        return dirname(__DIR__, 2).'/stubs/model.stub';
+        return dirname(__DIR__, 3).'/stubs/model.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)

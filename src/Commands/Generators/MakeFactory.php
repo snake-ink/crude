@@ -41,7 +41,7 @@ class MakeFactory extends GeneratorCommand
 
     public function getStub()
     {
-        return dirname(__DIR__, 2).'/stubs/factory.stub';
+        return dirname(__DIR__, 3).'/stubs/factory.stub';
     }
 
     protected function getRootNamespace()

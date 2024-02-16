@@ -48,7 +48,7 @@ class MakeRepository extends GeneratorCommand
 
     public function getStub()
     {
-        return dirname(__DIR__, 2).'/stubs/repository.stub';
+        return dirname(__DIR__, 3).'/stubs/repository.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)

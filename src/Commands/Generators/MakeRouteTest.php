@@ -41,7 +41,7 @@ class MakeRouteTest extends GeneratorCommand
 
     public function getStub()
     {
-        return dirname(__DIR__, 2).'/stubs/route-test.stub';
+        return dirname(__DIR__, 3).'/stubs/route-test.stub';
     }
 
     protected function getRootNamespace()

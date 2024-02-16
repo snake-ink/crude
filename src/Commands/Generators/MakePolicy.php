@@ -31,7 +31,7 @@ class MakePolicy extends GeneratorCommand
 
     public function getStub()
     {
-        return dirname(__DIR__, 2).'/stubs/policy.stub';
+        return dirname(__DIR__, 3).'/stubs/policy.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)
