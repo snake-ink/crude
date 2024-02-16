@@ -35,7 +35,8 @@
   "prefer-stable": true,
   "repositories": [],
   "require-dev": {
-    "phpstan/phpstan": "^1.4"
+    "phpstan/phpstan": "^1.4",
+    "phpunit/phpunit": "^10.1"
   },
   "extra": {
     "laravel": {
