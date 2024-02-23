@@ -8,6 +8,8 @@ class DummyClass extends Validator
 {
     /**
      * Validation rules applied during the creation of the entity.
+     *
+     * @return array<string, mixed>
      */
     public function store(): array
     {
@@ -16,6 +18,8 @@ class DummyClass extends Validator
 
     /**
      * Validation rules applied during the update of the entity.
+     *
+     * @return array<string, mixed>
      */
     public function update(): array
     {

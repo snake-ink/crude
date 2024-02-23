@@ -31,6 +31,7 @@ class {{Model}}Policy
     /**
      * Whether the $actor can create a {{Model}}.
      *
+     * @param array<string, mixed> $attributes
      */
     public function create(User $actor, array $attributes = []): bool
     {
@@ -40,6 +41,7 @@ class {{Model}}Policy
     /**
      * Whether the $actor can update a specific {{Model}}.
      *
+     * @param array<string, mixed> $attributes
      */
     public function update(
         User $actor,
@@ -53,6 +55,7 @@ class {{Model}}Policy
      * Whether the $actor can delete a specific {{Model}}, 
      * or multiple specific {{ModelPluralSpace}}.
      *
+     * @param Collection<int, mixed>|array<int, mixed>|{{Model}}|int|string ${{model}}
      */
     public function delete(
         User $actor, 
