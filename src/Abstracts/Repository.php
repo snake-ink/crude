@@ -55,6 +55,10 @@ abstract class Repository
         ?array $paginationArguments = null,
         ?object $starterQuery = null
     ): Collection|LengthAwarePaginator|null {
+        if ($perPage <= 0) {
+            $perPage = null;
+        }
+
         if ($useQueryBuilder) {
             $query = $this->startQueryBuilder(query: $starterQuery, for: $queryBuilderModelClass)
                 ->buildQueryWithSelects()
@@ -80,6 +84,10 @@ abstract class Repository
         ?int $perPage = null,
         ?array $paginationArguments = null,
     ): Collection|LengthAwarePaginator|null {
+        if ($perPage <= 0) {
+            $perPage = null;
+        }
+
         $query = $this->where(...$whereArguments);
 
         return $this->all(
@@ -100,6 +108,10 @@ abstract class Repository
         ?int $perPage = null,
         ?array $paginationArguments = null,
     ): Collection|LengthAwarePaginator|null {
+        if ($perPage <= 0) {
+            $perPage = null;
+        }
+
         $entity = $this->resolveEntity(
             entity: $entity,
             failIfNotFound: $failIfNotFound
