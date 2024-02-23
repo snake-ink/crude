@@ -15,7 +15,7 @@ class DummyClass extends RouteTestCase
 
     public function testNo{{ModelPlural}}Exist()
     {
-        $response = $this->actingAs($this->genericUser)->call(
+        $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'GET',
             uri: route('{{kebab-case-model-plural}}.index'),
         );
@@ -27,7 +27,7 @@ class DummyClass extends RouteTestCase
     {
         $createdResources = {{Model}}::factory()->count(7)->create();
 
-        $response = $this->actingAs($this->genericUser)->call(
+        $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'GET',
             uri: route('{{kebab-case-model-plural}}.index'),
         );
@@ -44,7 +44,7 @@ class DummyClass extends RouteTestCase
     {
         ${{model}} = {{Model}}::factory()->create();
 
-        $response = $this->actingAs($this->genericUser)->call(
+        $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'GET',
             uri: route('{{kebab-case-model-plural}}.show', ['id' => ${{model}}->id])
         );
@@ -59,7 +59,7 @@ class DummyClass extends RouteTestCase
 
     public function test{{Model}}CanBeCreated()
     {
-        $response = $this->actingAs($this->genericUser)->call(
+        $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'POST',
             uri: route('{{kebab-case-model-plural}}.store'),
             parameters: {{Model}}::factory()->make()->toArray()
@@ -76,7 +76,7 @@ class DummyClass extends RouteTestCase
 
         $updateData = {{Model}}::factory()->make()->toArray();
 
-        $response = $this->actingAs($this->genericUser)->call(
+        $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'PUT',
             uri: route('{{kebab-case-model-plural}}.update', ['id' => ${{model}}->id]),
             parameters: $updateData
@@ -94,7 +94,7 @@ class DummyClass extends RouteTestCase
     {
         ${{model}} = {{Model}}::factory()->create();
 
-        $response = $this->actingAs($this->genericUser)->call(
+        $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'DELETE',
             uri: route('{{kebab-case-model-plural}}.destroy', ['id' => ${{model}}->id]),
         );
