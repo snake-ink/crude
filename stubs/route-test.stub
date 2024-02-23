@@ -97,7 +97,7 @@ class DummyClass extends RouteTestCase
 
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'DELETE',
-            uri: route('{{kebab-case-model-plural}}.destroy', ['id' => ${{model}}->toArray()->['id']]),
+            uri: route('{{kebab-case-model-plural}}.destroy', ['id' => ${{model}}->toArray()['id']]),
         );
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
