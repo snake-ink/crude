@@ -13,7 +13,7 @@ class DummyClass extends RouteTestCase
 
     // Regular tests
 
-    public function testNo{{ModelPlural}}Exist()
+    public function testNo{{ModelPlural}}Exist(): void
     {
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'GET',
@@ -23,7 +23,7 @@ class DummyClass extends RouteTestCase
         $response->assertStatus(Response::HTTP_NO_CONTENT);
     }
 
-    public function testAll{{ModelPlural}}CanBeListed()
+    public function testAll{{ModelPlural}}CanBeListed(): void
     {
         $createdResources = {{Model}}::factory()->count(7)->create();
 
@@ -40,7 +40,7 @@ class DummyClass extends RouteTestCase
         );
     }
 
-    public function test{{Model}}CanBeShown()
+    public function test{{Model}}CanBeShown(): void
     {
         ${{model}} = {{Model}}::factory()->create();
 
@@ -57,7 +57,7 @@ class DummyClass extends RouteTestCase
         );
     }
 
-    public function test{{Model}}CanBeCreated()
+    public function test{{Model}}CanBeCreated(): void
     {
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'POST',
@@ -70,7 +70,7 @@ class DummyClass extends RouteTestCase
         $this->assertModelExists($response->original['resources']);
     }
 
-    public function test{{Model}}CanBeUpdated()
+    public function test{{Model}}CanBeUpdated(): void
     {
         ${{model}} = {{Model}}::factory()->create();
 
@@ -90,7 +90,7 @@ class DummyClass extends RouteTestCase
         );
     }
 
-    public function test{{Model}}CanBeDeleted()
+    public function test{{Model}}CanBeDeleted(): void
     {
         ${{model}} = {{Model}}::factory()->create();
 

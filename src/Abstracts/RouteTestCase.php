@@ -4,7 +4,6 @@ namespace SnakeInk\Crude\Abstracts;
 
 use Illuminate\Auth\GenericUser;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use SnakeInk\Crude\Concerns\CreatesApplication;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase;
@@ -16,7 +15,7 @@ abstract class RouteTestCase extends BaseTestCase
     use InteractsWithDatabase;
     use CreatesApplication;
 
-    protected GenericUser|Authenticatable|Model $defaultUserActor;
+    protected Authenticatable $defaultUserActor;
 
     public function __construct(string $name)
     {
@@ -30,7 +29,7 @@ abstract class RouteTestCase extends BaseTestCase
         $this->defaultUserActor = $this->generateDefaultUserActor();
     }
 
-    protected function generateDefaultUserActor(): GenericUser|Authenticatable|Model
+    protected function generateDefaultUserActor(): Authenticatable
     {
         return new GenericUser(['id' => 1, 'name' => 'Surucucu']);
     }
