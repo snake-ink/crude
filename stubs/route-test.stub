@@ -36,13 +36,15 @@ class DummyClass extends RouteTestCase
 
         $this->assertEquals(
             expected: $createdResources->toArray(),
-            actual: $response->original['resources']->toArray()
+            actual: $response->json('resources')
         );
     }
 
     public function test{{Model}}CanBeShown(): void
     {
-        ${{model}} = {{Model}}::factory()->create();
+        ${{model}} = new {{Model}}(
+            attributes: {{Model}}::factory()->create()->toArray()
+        );
 
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'GET',
@@ -53,7 +55,7 @@ class DummyClass extends RouteTestCase
 
         $this->assertEquals(
             expected: ${{model}}->toArray(),
-            actual: $response->original['resources']->toArray()
+            actual: $response->json('resources')
         );
     }
 
@@ -72,7 +74,9 @@ class DummyClass extends RouteTestCase
 
     public function test{{Model}}CanBeUpdated(): void
     {
-        ${{model}} = {{Model}}::factory()->create();
+        ${{model}} = new {{Model}}(
+            attributes: {{Model}}::factory()->create()->toArray()
+        );
 
         $updateData = {{Model}}::factory()->make()->toArray();
 
@@ -86,13 +90,15 @@ class DummyClass extends RouteTestCase
 
         $this->assertEquals(
             expected: ${{model}}->fresh()->toArray(),
-            actual: $response->original['resources']->toArray()
+            actual: $response->json('resources')
         );
     }
 
     public function test{{Model}}CanBeDeleted(): void
     {
-        ${{model}} = {{Model}}::factory()->create();
+        ${{model}} = new {{Model}}(
+            attributes: {{Model}}::factory()->create()->toArray()
+        );
 
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'DELETE',
