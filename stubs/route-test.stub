@@ -15,6 +15,7 @@ class DummyClass extends RouteTestCase
 
     public function testNo{{ModelPlural}}Exist(): void
     {
+        // @phpstan-ignore-next-line
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'GET',
             uri: route('{{kebab-case-model-plural}}.index'),
@@ -27,6 +28,7 @@ class DummyClass extends RouteTestCase
     {
         $createdResources = {{Model}}::factory()->count(7)->create();
 
+        // @phpstan-ignore-next-line
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'GET',
             uri: route('{{kebab-case-model-plural}}.index'),
@@ -43,6 +45,7 @@ class DummyClass extends RouteTestCase
     {
         ${{model}} = {{Model}}::factory()->create()->toArray();
 
+        // @phpstan-ignore-next-line
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'GET',
             uri: route('{{kebab-case-model-plural}}.show', ['id' => ${{model}}['id']])
@@ -59,6 +62,7 @@ class DummyClass extends RouteTestCase
     {
         $payload = {{Model}}::factory()->make()->toArray();
 
+        // @phpstan-ignore-next-line
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'POST',
             uri: route('{{kebab-case-model-plural}}.store'),
@@ -78,6 +82,7 @@ class DummyClass extends RouteTestCase
 
         $updateData = {{Model}}::factory()->make()->toArray();
 
+        // @phpstan-ignore-next-line
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'PUT',
             uri: route('{{kebab-case-model-plural}}.update', ['id' => ${{model}}->toArray()['id']]),
@@ -95,6 +100,7 @@ class DummyClass extends RouteTestCase
     {
         ${{model}} = {{Model}}::factory()->create();
 
+        // @phpstan-ignore-next-line
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'DELETE',
             uri: route('{{kebab-case-model-plural}}.destroy', ['id' => ${{model}}->toArray()['id']]),
