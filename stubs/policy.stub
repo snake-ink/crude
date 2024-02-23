@@ -12,7 +12,7 @@ class {{Model}}Policy
      * Whether the $actor can list {{ModelPluralSpace}}.
      *
      */
-    public function viewAny(User $actor)
+    public function viewAny(User $actor): bool
     {
         return true;
     }
@@ -24,7 +24,7 @@ class {{Model}}Policy
     public function view(
         User $actor, 
         {{Model}}|int|string ${{model}}
-    ) {
+    ): bool {
         return true;
     }
 
@@ -32,7 +32,7 @@ class {{Model}}Policy
      * Whether the $actor can create a {{Model}}.
      *
      */
-    public function create(User $actor, array $attributes = [])
+    public function create(User $actor, array $attributes = []): bool
     {
         return true;
     }
@@ -45,7 +45,7 @@ class {{Model}}Policy
         User $actor,
         {{Model}}|int|string ${{model}},
         array $attributes = []
-    ) {
+    ): bool {
         return true;
     }
 
@@ -57,7 +57,7 @@ class {{Model}}Policy
     public function delete(
         User $actor, 
         Collection|array|{{Model}}|int|string ${{model}}
-    ) {
+    ): bool {
         return true;
     }
 }
