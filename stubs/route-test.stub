@@ -34,75 +34,70 @@ class DummyClass extends RouteTestCase
 
         $response->assertStatus(Response::HTTP_OK);
 
-        $this->assertEquals(
-            expected: $createdResources->toArray(),
-            actual: $response->json('resources')
-        );
+        $response->assertJson([
+            'resources' => $createdResources->toArray()
+        ]);
     }
 
     public function test{{Model}}CanBeShown(): void
     {
-        ${{model}} = new {{Model}}(
-            attributes: {{Model}}::factory()->create()->toArray()
-        );
+        ${{model}} = {{Model}}::factory()->create()->toArray();
 
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'GET',
-            uri: route('{{kebab-case-model-plural}}.show', ['id' => ${{model}}->id])
+            uri: route('{{kebab-case-model-plural}}.show', ['id' => ${{model}}['id']])
         );
 
         $response->assertStatus(Response::HTTP_OK);
 
-        $this->assertEquals(
-            expected: ${{model}}->toArray(),
-            actual: $response->json('resources')
-        );
+        $response->assertJson([
+            'resources' => ${{model}}
+        ]);
     }
 
     public function test{{Model}}CanBeCreated(): void
     {
+        $payload = {{Model}}::factory()->make()->toArray();
+
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'POST',
             uri: route('{{kebab-case-model-plural}}.store'),
-            parameters: {{Model}}::factory()->make()->toArray()
+            parameters: $payload
         );
 
         $response->assertStatus(Response::HTTP_CREATED);
 
-        $this->assertModelExists($response->original['resources']);
+        $response->assertJson([
+            'resources' => $payload
+        ]);
     }
 
     public function test{{Model}}CanBeUpdated(): void
     {
-        ${{model}} = new {{Model}}(
-            attributes: {{Model}}::factory()->create()->toArray()
-        );
+        ${{model}} = {{Model}}::factory()->create();
 
         $updateData = {{Model}}::factory()->make()->toArray();
 
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'PUT',
-            uri: route('{{kebab-case-model-plural}}.update', ['id' => ${{model}}->id]),
+            uri: route('{{kebab-case-model-plural}}.update', ['id' => ${{model}}->toArray()['id']]),
             parameters: $updateData
         );
 
         $response->assertStatus(Response::HTTP_OK);
 
-        $this->assertEquals(
-            expected: ${{model}}->fresh()->toArray(),
-            actual: $response->json('resources')
-        );
+        $response->assertJson([
+            'resources' => $musicReleaseGroup->fresh()?->toArray()
+        ]);
     }
 
     public function test{{Model}}CanBeDeleted(): void
     {
-        ${{model}} = new {{Model}}(
-            attributes: {{Model}}::factory()->create()->toArray()
-        );
+        ${{model}} = {{Model}}::factory()->create();
 
         $response = $this->actingAs($this->defaultUserActor)->call(
             method: 'DELETE',
-            uri: route('{{kebab-case-model-plural}}.destroy', ['id' => ${{model}}->id]),
+            uri: route('{{kebab-case-model-plural}}.destroy', ['id' => ${{model}}->toArray()->['id']]),
         );
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
