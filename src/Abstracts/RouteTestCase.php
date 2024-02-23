@@ -30,7 +30,7 @@ abstract class RouteTestCase extends BaseTestCase
         $this->defaultUserActor = $this->generateDefaultUserActor();
     }
 
-    protected function generateDefaultUserActor(): Authenticatable
+    protected function generateDefaultUserActor(): Model|Authenticatable
     {
         return new GenericUser(['id' => 1, 'name' => 'Surucucu']);
     }
