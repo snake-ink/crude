@@ -87,7 +87,7 @@ class DummyClass extends RouteTestCase
         $response->assertStatus(Response::HTTP_OK);
 
         $response->assertJson([
-            'resources' => $musicReleaseGroup->fresh()?->toArray()
+            'resources' => ${{model}}->fresh()?->toArray()
         ]);
     }
 
