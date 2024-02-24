@@ -28,7 +28,7 @@ class DummyClass extends Controller
         );
     }
 
-    public function show(Request $request, int|string $id): JsonResponse
+    public function show(int|string $id): JsonResponse
     {
         return ContentResource::toJson(
             resources: $this->{{model}}Service->show(
@@ -60,7 +60,7 @@ class DummyClass extends Controller
         );
     }
 
-    public function destroy(Request $request, int|string $id): JsonResponse
+    public function destroy(int|string $id): JsonResponse
     {
         $deleted = $this->{{model}}Service->destroy(
             entities: $id,
