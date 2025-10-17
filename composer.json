@@ -35,6 +35,7 @@
     "prefer-stable": true,
     "repositories": [],
     "require-dev": {
+        "larastan/larastan": "^3.0",
         "laravel/pint": "^1.25",
         "orchestra/testbench": "^10.0",
         "phpstan/phpstan": "^2.1",
