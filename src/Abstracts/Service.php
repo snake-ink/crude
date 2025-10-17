@@ -219,7 +219,7 @@ abstract class Service
         array $authorizationArguments = [],
         ?object $starterQuery = null
     ): int|bool|null {
-        if (Repository::isId($entities)) {
+        if (OldRepository::isId($entities)) {
             $entity = $this->repository->find(
                 id: $entities,
                 failIfNotFound: $failIfNotFound,
@@ -237,7 +237,7 @@ abstract class Service
             $this->authorize(...$authorizationArguments);
         }
 
-        if (Repository::isArrayOrCollection($entities)) {
+        if (OldRepository::isArrayOrCollection($entities)) {
             $result = $this->repository->destroy($entities); // Delete Multiple Entities
         } else {
             $result = $this->repository->delete($entity ?? $entities); // Delete Single Entity
@@ -411,7 +411,7 @@ abstract class Service
 
     private function verifyRepository(): void
     {
-        if (!is_subclass_of($this->repository, Repository::class)) {
+        if (!is_subclass_of($this->repository, OldRepository::class)) {
             throw new InvalidRepositoryException();
         }
     }
