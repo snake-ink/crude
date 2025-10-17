@@ -18,11 +18,6 @@ abstract class RouteTestCase extends BaseTestCase
 
     protected Model|Authenticatable $defaultUserActor;
 
-    public function __construct(string $name)
-    {
-        parent::__construct($name);
-    }
-
     protected function setUp(): void
     {
         parent::setUp();

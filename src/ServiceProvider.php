@@ -2,6 +2,7 @@
 
 namespace SnakeInk\Crude;
 
+use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use SnakeInk\Crude\Commands\Generators\MakeRepository;
 use SnakeInk\Crude\Commands\Generators\MakeController;
@@ -15,11 +16,9 @@ use SnakeInk\Crude\Commands\Generators\MakeValidator;
 class ServiceProvider extends BaseServiceProvider
 {
     /**
-     * Boot the service provider.
-     *
-     * @return void
+     * Bootstrap any package services.
      */
-    public function boot()
+    public function boot(): void
     {
         $translationsPath = __DIR__.'/../lang';
 
@@ -29,6 +28,8 @@ class ServiceProvider extends BaseServiceProvider
             path: $translationsPath,
             namespace: 'sss'
         );
+
+        AboutCommand::add('CRUDE', fn () => ['Version' => '1.0.0']);
 
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -46,10 +47,8 @@ class ServiceProvider extends BaseServiceProvider
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
     }
 }

@@ -138,7 +138,7 @@ abstract class Repository
     }
 
     public function first(
-        callable $truthTestCallback = null,
+        ?callable $truthTestCallback = null,
         $default = null
     ): ?object {
         return $this->all()->first($truthTestCallback, $default);

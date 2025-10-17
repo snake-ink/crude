@@ -4,9 +4,10 @@ namespace SnakeInk\Crude\Concerns;
 
 use ReflectionClass;
 
-trait ChecksIfClassImplementsAnother {
+trait ChecksIfClassImplementsAnother
+{
     protected function classImplementsInterface(
-        string $interface, 
+        string $interface,
         ?string $class = null
     ): bool {
         return (new ReflectionClass($class ?? $this::class))

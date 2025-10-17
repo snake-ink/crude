@@ -326,9 +326,9 @@ abstract class Service
 
             $gateWithUserActor = Gate::forUser($userActor ?? Auth::user());
 
-            return $throwAuthorizationException ?? true ?
-                $gateWithUserActor->authorize($ability, $arguments) :
-                $gateWithUserActor->inspect($ability, $arguments);
+            return $throwAuthorizationException 
+                ? $gateWithUserActor->authorize($ability, $arguments) 
+                : $gateWithUserActor->inspect($ability, $arguments);
         }
 
         return null;
